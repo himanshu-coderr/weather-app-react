@@ -15,6 +15,7 @@ class App extends React.Component {
       location: "Delhi",
       metric: FARENHEIT,
       hourlyForecast: [],
+      dailyForecast: [],
       current: "",
     };
 
@@ -39,12 +40,14 @@ class App extends React.Component {
       current: forecastRes.current,
       metric: FARENHEIT,
       hourlyForecast: forecastRes.hourly,
+      dailyForecast: forecastRes.daily,
     });
   }
 
   render() {
     const location = this.state.location;
     const hourlyForecast = this.state.hourlyForecast;
+    const dailyForecast = this.state.dailyForecast;
     const current = this.state.current;
 
     return (
@@ -57,7 +60,7 @@ class App extends React.Component {
           />
 
           {current && <CurrentWeather current={current} />}
-          {hourlyForecast.length > 0 && <Forecast forecast={hourlyForecast} />}
+          {hourlyForecast.length > 0 && <Forecast forecast={hourlyForecast} forecastDaily={dailyForecast}/>}
         </header>
       </div>
     );
