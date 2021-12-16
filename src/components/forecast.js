@@ -31,16 +31,21 @@ class Forecast extends React.Component {
       );
     });
 
+    let num = 1;
     const daily = this.props.forecastDaily.map((f,i) => {
-      const image = {
-        url: `http://openweathermap.org/img/wn/${f.weather[0].icon}@2x.png`,
-        alt: `Image of  ${f.weather[0].description}`,
-      };
-      const description = f.weather[0].description;
-      const unixTimestamp = f.dt;
-      let datetime = new Date(unixTimestamp * 1000);
-      let day = `${datetime.toDateString().slice(0,4)}`;
-      console.log(day)
+
+      if(num !== 8){
+        const image = {
+          url: `http://openweathermap.org/img/wn/${f.weather[0].icon}@2x.png`,
+          alt: `Image of  ${f.weather[0].description}`,
+        };
+        const description = f.weather[0].description;
+        const unixTimestamp = f.dt;
+        let datetime = new Date(unixTimestamp * 1000);
+        let day = `${datetime.toDateString().slice(0,4)}`;
+        num += 1;
+        // console.log(day)
+
 
       return (
         <div key={i} className="forecast-item">
@@ -52,13 +57,14 @@ class Forecast extends React.Component {
           <p className="forecast-item__description">{description}</p>
         </div>
       );
+      } // if ends
     })
 
     return (
       <div className="forecast">
         <h3 className="forecast__title">Hourly Forecast</h3>
         <div className="forecast-items">{items}</div>
-{/* -------------------------------------------------------------- */}
+        {/* -------------------------------------------------------------- */}
         <h3 className="forecast__title">Daily Forecast</h3>
         <div className="forecast-items">{daily}</div>
       </div>
